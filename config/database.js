@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 
-const connectToDataBase = async(BASE_URL)=> {
+const connectToDataBase = async(BASE_URL, DB_name='MyDatabase')=> {
     try {
-        const res = await mongoose.connect(BASE_URL);
+        await mongoose.connect(`${BASE_URL}/${DB_name}`,  { useNewUrlParser: true, useUnifiedTopology: true });
         console.log(`mongodb connection established succefully.`);
     } catch (error) {
         console.log(`Mongodb connection failed: ${error}`);
