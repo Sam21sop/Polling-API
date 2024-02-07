@@ -38,7 +38,7 @@ export const addOptionController = async (req, res) => {
                 text:req.body.text,
                 votes:0
             });
-            option.link_to_vote = "http://localhost:8000/api/v1/options/" + option._id + "/addVote";
+            option.link_to_vote = "http://localhost:8000/api/v1/options/" + option.id + "/addVote";
             option.save();
 
             question.options.push(option);
@@ -76,25 +76,9 @@ export const deleteQuetionController = async (req, res) => {
 // function to handle view a questions routes
 export const viewsQuestionsController = async (req , res) => {
     try {
-        let id = req.params.id;
-        let question = await questionModel.findById(id).populate({path:'options', select:'votes'});
+        let question = await questionModel.find();
         if(question){
-            let options = question.options;
-
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].votes > 0) {
-
-                    return res.status(404).json({
-                        message: "Question cannot be deleted, it's options are voted already !"
-                    });
-                };
-            };
-
-            // if no any votes on any option of question
-            await Option.deleteMany({ question: id });
-            await Question.findByIdAndDelete(id);
-
-            return res.status(200).json({message: "Question deleted Successfully!"});
+            return res.status(200).json({question});
         } else {
             return res.status(404).json({message: "Question not found!"});
         }

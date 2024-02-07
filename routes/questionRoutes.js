@@ -11,9 +11,9 @@ const questionRoutes = Router();
 
 // define all routes and methods
 questionRoutes.route("/create").post(createQuetionController);
-questionRoutes.route("/:id/option/create").post(addOptionController);
+questionRoutes.route("/:id/create/option").post(addOptionController);
 questionRoutes.route("/:id/delete").delete(deleteQuetionController);
-questionRoutes.route("/:id").get(viewsQuestionsController);
+questionRoutes.route("").get(viewsQuestionsController);
 
 
 export default questionRoutes;
