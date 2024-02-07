@@ -1,15 +1,31 @@
 import mongoose from "mongoose";
 
-const optionsSchema = mongoose.Schema({
-    text: {
-        type:String,
-        required:true
+const optionsSchema = mongoose.Schema(
+    {
+        id: {
+            type:Number,
+            required: true
+        },
+        text: {
+            type:String,
+            required:true
+        },
+        votes: {
+            type:Number,
+            default:0
+        },
+        link_to_vote:{
+            type:String
+        },
+        question:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Question"
+        }
     },
-    votes: {
-        type:Number,
-        default:0
+    {
+        timestamps:true
     }
-});
+);
 
 
 const optionsModel = mongoose.model("Option", optionsSchema);
